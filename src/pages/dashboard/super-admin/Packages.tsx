@@ -284,13 +284,14 @@ export default function SuperAdminPackages() {
             </div>
 
             <div className="grid gap-2">
-              <Label>Price</Label>
-              <Input
-                type="number"
-                value={draft.price}
-                onChange={(e) => setDraft((p) => ({ ...p, price: e.target.value }))}
-              />
-            </div>
+-              <Label>Price</Label>
++              <Label>Price (IDR)</Label>
+               <Input
+                 type="number"
+                 value={draft.price}
+                 onChange={(e) => setDraft((p) => ({ ...p, price: e.target.value }))}
+               />
+             </div>
 
             <div className="grid gap-2">
               <Label>Description</Label>
@@ -366,7 +367,7 @@ export default function SuperAdminPackages() {
                   <TableRow key={pkg.id}>
                     <TableCell className="font-medium">{pkg.name}</TableCell>
                     <TableCell className="capitalize">{pkg.type}</TableCell>
-                    <TableCell>${pkg.price?.toFixed(2) || "0.00"}</TableCell>
+                    <TableCell>Rp {pkg.price != null ? pkg.price.toLocaleString("id-ID", { minimumFractionDigits: 0 }) : "0"}</TableCell>
                     <TableCell>
                       <Badge variant={pkg.is_active ? "default" : "secondary"}>
                         {pkg.is_active ? "Active" : "Inactive"}

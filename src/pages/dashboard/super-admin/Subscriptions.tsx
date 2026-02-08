@@ -300,8 +300,9 @@ export default function SuperAdminSubscriptions() {
                     </div>
 
                     <div>
-                      <Label className="text-xs">Price (USD)</Label>
-                      <Input
+-                      <Label className="text-xs">Price (USD)</Label>
++                      <Label className="text-xs">Price (IDR)</Label>
+                       <Input
                         value={String(p.price_usd ?? 0)}
                         onChange={(e) =>
                           setPlans((prev) =>
