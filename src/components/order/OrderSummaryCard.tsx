@@ -96,11 +96,16 @@ export function OrderSummaryCard({ showEstPrice = true }: { showEstPrice?: boole
     return d;
   })();
 
-  const selectedDurationTotal = useMemo(() => {
+  const totalAfterPromoUsd = (() => {
     if (baseTotalUsd == null) return null;
-    // baseTotalUsd already includes add-ons; "Paket" should follow duration selection (without add-ons)
-    return Math.max(0, Number(baseTotalUsd) - Number(addOnsTotal ?? 0));
-  }, [addOnsTotal, baseTotalUsd]);
+    return Math.max(0, baseTotalUsd - promoDiscountUsd);
+  })();
+
+  const estTotalLabel = (() => {
+    if (!showEstPrice) return null;
+    if (totalAfterPromoUsd == null) return "—";
+    return formatIdr(totalAfterPromoUsd);
+  })();
 
   return (
     <Card className="shadow-soft">
@@ -116,7 +121,7 @@ export function OrderSummaryCard({ showEstPrice = true }: { showEstPrice?: boole
 
           <div className="flex items-center justify-between gap-3">
             <span className="text-sm text-muted-foreground">Paket</span>
-            <span className="text-sm font-medium text-foreground">{selectedDurationTotal == null ? "—" : formatIdr(selectedDurationTotal)}</span>
+            <span className="text-sm font-medium text-foreground">{pricing.packagePriceUsd == null ? "—" : formatIdr(pricing.packagePriceUsd)}</span>
           </div>
 
           <div className="flex items-center justify-between gap-3">
